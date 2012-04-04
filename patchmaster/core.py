@@ -17,7 +17,9 @@ from flask.views import MethodView
 from flask_heroku import Heroku
 from raven.contrib.flask import Sentry
 from flask.ext.celery import Celery
+from flaskext.bcrypt import Bcrypt
 from sqlalchemy import desc
+
 
 from .models import db
 
@@ -37,6 +39,7 @@ db.init_app(app)
 
 sentry = Sentry(app)
 celery = Celery(app)
+bcrypt = Bcrypt(app)
 
 
 

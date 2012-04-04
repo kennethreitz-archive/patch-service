@@ -7,7 +7,7 @@ Plans
 ~~~~~
 
 - Force HTTPS
-- Basic Authentication
+- Basic Authenticationm
 
 
 URI Schema::
@@ -34,10 +34,12 @@ URI Schema::
     /distributions/:id
         hash
         file_name
+        file_size
     /devices/:slug
         slug
         vanity_name
         make
         model
         approved
+
 
