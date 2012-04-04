@@ -40,24 +40,26 @@ class Account(db.Model, BaseModel):
         super(Account, self).__init__()
 
 class User(db.Model, BaseModel):
-    """A user account."""
+    """A User profile."""
 
-    username = db.Column(db.String(40), unique=True, primary_key=True)
+    name = db.Column(db.String(40), unique=True, primary_key=True)
     email = db.Column(db.String(100), unique=True, primary_key=True)
-    bio = db.Column(db.String(2000))
+    bio = db.Column(db.String(10000))
     website = db.Column(db.String(300))
     location = db.Column(db.String(100))
 
     def __init__(self, arg):
         super(User, self).__init__()
+
 
 class Patch(db.Model, BaseModel):
-    """A user's patch."""
+    """A User's patch."""
 
     name = db.Column(db.String(100), unique=True, primary_key=True)
-    description = db.Column(db.String(500))
-    # distribution = db.Column(db.String(500))
-    # device = db.Column(db.String(500))
+    description = db.Column(db.String(10000))
+    device_id = Column(Integer, ForeignKey('device.id'))
+    category_id = Column(Integer, ForeignKey('category.id'))
+    downloads = relationship('Download', backref='patch')
 
     bio = db.Column(db.String(2000))
     website = db.Column(db.String(300))
@@ -67,57 +69,38 @@ class Patch(db.Model, BaseModel):
         super(User, self).__init__()
 
 
+class Download(db.Model, BaseModel):
+    """A User's download."""
+
+    patch_id = db.Column(db.Integer, db.ForeignKey(Patch.id))
+    checksum = db.Column(db.String(100))
+    file_name = db.Column(db.String(100))
+    file_size = db.Column(db.Integer)
+
+    def __init__(self, arg):
+        super(User, self).__init__()
 
 
+class Device(db.Model, BaseModel):
+    """A Patch Device."""
 
-# class BuildRequest(db.Model, BaseModel):
-#     id = db.Column(db.Integer, primary_key=True)
-#     buildpack_url = db.Column(db.String(300), unique=False)
-#     application_url = db.Column(db.String(300), unique=False)
-#     keep = db.Column(db.Boolean)
+    name = db.Column(db.String(100))
+    vanity_name = db.Column(db.String(100))
+    file_size = db.Column(db.Integer)
+    make = db.Column(db.String(100))
+    model = db.Column(db.String(100))
+    patches = relationship('Patch', backref='device')
 
-#     def __repr__(self):
-#         return '<BuildRequest %r>' % self.id
+    def __init__(self, arg):
+        super(User, self).__init__()
 
-#     @property
-#     def result(self):
-#         b_result = BuildResult.query.filter_by(request_id=self.id).first()
 
-#         if not b_result:
-#             b_result = BuildResult(request_id=self.id)
-#             b_result.save()
+class Category(db.Model, BaseModel):
+    """A Patch category."""
 
-#         return b_result
+    name = db.Column(db.String(100))
+    vanity_name = db.Column(db.String(100))
+    patches = relationship('Patch', backref='category')
 
-#     def __init__(self, buildpack_url, application_url, keep=False):
-#         self.buildpack_url = buildpack_url
-#         self.application_url = application_url
-#         self.keep = keep
-
-#     @property
-#     def url(self):
-#         return url_for('view_build', id=self.id)
-
-# class BuildResult(db.Model, BaseModel):
-#     id = db.Column(db.Integer, primary_key=True)
-#     request_id = db.Column(db.Integer, db.ForeignKey(BuildRequest.id))
-#     request = relationship(BuildRequest, uselist=False)
-#     heroku_app = db.Column(db.String(50), unique=False)
-#     install_log = db.Column(db.Text(), unique=False, nullable=True)
-#     runtime_log = db.Column(db.Text(), unique=False, nullable=True)
-#     success = db.Column(db.Boolean, nullable=True)
-#     active = db.Column(db.Boolean, nullable=True)
-
-#     def __init__(self, request_id):
-#         self.request_id = request_id
-
-#     def __repr__(self):
-#         return '<BuildResult %r>' % self.id
-
-#     @property
-#     def heroku_url(self):
-#         return 'http://{self.heroku_app}.herokuapp.com'.format(self=self)
-
-#     @property
-#     def git_url(self):
-#         return 'git@heroku.com:{self.heroku_app}.git'.format(self=self)
+    def __init__(self, arg):
+        super(User, self).__init__()

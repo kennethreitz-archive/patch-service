@@ -20,18 +20,13 @@ URI Schema::
         location
         date_joined
     /users/
-    /users/:user/packs/
-        name
-        .. vanity_name?
-        description
-        patches
     /users/:user/patches/
         name
         .. vanity_name?
         description
         distribution
         device
-    /distributions/:id
+    /downloads/:id
         hash
         file_name
         file_size
@@ -40,6 +35,11 @@ URI Schema::
         vanity_name
         make
         model
-        approved
+    /category/:slug
+        name
+        vanity_name
 
 
+Preset
+Drum Sample
+Synth Sample
