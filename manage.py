@@ -4,8 +4,8 @@
 from flaskext.script import Manager
 from flask.ext.celery import install_commands as install_celery
 
-from springcreek import app
-from springcreek.core import db, heroku
+from patchmaster import app
+from patchmaster.core import db
 
 
 manager = Manager(app)
@@ -15,17 +15,6 @@ install_celery(manager)
 def syncdb():
     """Initializes the database."""
     db.create_all()
-
-@manager.command
-def destroy_all_software():
-
-    for i, app in enumerate(heroku.apps):
-
-        if i != 0:
-            app.destroy()
-            print 'destroyed {0}'.format(app.name)
-
-
 
 if __name__ == "__main__":
     manager.run()
