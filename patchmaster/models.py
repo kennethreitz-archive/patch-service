@@ -57,8 +57,8 @@ class Patch(db.Model, BaseModel):
 
     name = db.Column(db.String(100), unique=True, primary_key=True)
     description = db.Column(db.String(10000))
-    device_id = Column(Integer, ForeignKey('device.id'))
-    category_id = Column(Integer, ForeignKey('category.id'))
+    device_id = db.Column(Integer, ForeignKey('device.id'))
+    category_id = db.Column(Integer, ForeignKey('category.id'))
     downloads = relationship('Download', backref='patch')
 
     bio = db.Column(db.String(2000))
