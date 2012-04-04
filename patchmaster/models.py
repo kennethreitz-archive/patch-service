@@ -12,7 +12,6 @@ from datetime import datetime
 
 from flask import url_for
 from flaskext.sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
@@ -59,7 +58,7 @@ class Patch(db.Model, BaseModel):
     description = db.Column(db.String(10000))
     device_id = db.Column(db.Integer, db.ForeignKey('device.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    downloads = relationship('Download', backref='patch')
+    downloads = db.relationship('Download', backref='patch')
 
     bio = db.Column(db.String(2000))
     website = db.Column(db.String(300))
@@ -90,7 +89,7 @@ class Device(db.Model, BaseModel):
     file_size = db.Column(db.Integer)
     make = db.Column(db.String(100))
     model = db.Column(db.String(100))
-    patches = relationship('Patch', backref='device')
+    patches = db.relationship('Patch', backref='device')
 
     def __init__(self, arg):
         super(User, self).__init__()
@@ -101,7 +100,7 @@ class Category(db.Model, BaseModel):
 
     name = db.Column(db.String(100))
     vanity_name = db.Column(db.String(100))
-    patches = relationship('Patch', backref='category')
+    patches = db.relationship('Patch', backref='category')
 
     def __init__(self, arg):
         super(User, self).__init__()
