@@ -42,7 +42,7 @@ celery = Celery(app)
 
 @app.route('/')
 def landing_page():
-    return render_template('index.html')
+    return 'hi'
 
 # class Builds(MethodView):
 
