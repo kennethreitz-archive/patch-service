@@ -14,9 +14,7 @@ from datetime import datetime, timedelta
 from flask import Flask, render_template, request, redirect, url_for, Response
 from flask.views import MethodView
 
-from flask_debugtoolbar import DebugToolbarExtension
 from flask_heroku import Heroku
-from flask_googlefed import GoogleAuth
 from raven.contrib.flask import Sentry
 from flask.ext.celery import Celery
 from sqlalchemy import desc
