@@ -71,6 +71,7 @@ class Patch(db.Model, BaseModel):
 
 class Download(db.Model, BaseModel):
     """A User's download."""
+    __table__ = 'download'
 
     patch_id = db.Column(db.Integer, db.ForeignKey(Patch.id))
     checksum = db.Column(db.String(100))
