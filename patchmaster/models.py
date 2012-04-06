@@ -30,6 +30,7 @@ class BaseModel(object):
 class Account(db.Model, BaseModel):
     """A user's authentication account."""
 
+    __tablename__ = 'account'
     username = db.Column(db.String(40), unique=True, primary_key=True)
     token = db.Column(db.String(40), unique=True, primary_key=True, default=generate_token)
     password = db.Column(db.String(100), unique=False)
@@ -41,6 +42,7 @@ class Account(db.Model, BaseModel):
 class User(db.Model, BaseModel):
     """A User profile."""
 
+    __tablename__ = 'user'
     name = db.Column(db.String(40), unique=True, primary_key=True)
     email = db.Column(db.String(100), unique=True, primary_key=True)
     bio = db.Column(db.String(10000))
@@ -54,6 +56,7 @@ class User(db.Model, BaseModel):
 class Patch(db.Model, BaseModel):
     """A User's patch."""
 
+    __tablename__ = 'patch'
     name = db.Column(db.String(100), unique=True, primary_key=True)
     description = db.Column(db.String(10000))
     device_id = db.Column(db.Integer, db.ForeignKey('device.id'))
@@ -70,8 +73,8 @@ class Patch(db.Model, BaseModel):
 
 class Download(db.Model, BaseModel):
     """A User's download."""
-    __table__ = 'download'
 
+    __tablename__ = 'download'
     patch_id = db.Column(db.Integer, db.ForeignKey(Patch.id))
     checksum = db.Column(db.String(100))
     file_name = db.Column(db.String(100))
@@ -84,6 +87,7 @@ class Download(db.Model, BaseModel):
 class Device(db.Model, BaseModel):
     """A Patch Device."""
 
+    __tablename__ = 'device'
     name = db.Column(db.String(100))
     vanity_name = db.Column(db.String(100))
     file_size = db.Column(db.Integer)
@@ -98,6 +102,7 @@ class Device(db.Model, BaseModel):
 class Category(db.Model, BaseModel):
     """A Patch category."""
 
+    __tablename__ = 'category'
     name = db.Column(db.String(100))
     vanity_name = db.Column(db.String(100))
     patches = db.relationship('Patch', backref='category')
