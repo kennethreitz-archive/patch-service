@@ -75,7 +75,7 @@ class Download(db.Model, BaseModel):
     """A User's download."""
 
     __tablename__ = 'download'
-    patch_id = db.Column(db.Integer, db.ForeignKey(Patch.id))
+    patch_id = db.Column(db.Integer, db.ForeignKey('patch.id'))
     checksum = db.Column(db.String(100))
     file_name = db.Column(db.String(100))
     file_size = db.Column(db.Integer)
