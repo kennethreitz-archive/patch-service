@@ -19,7 +19,7 @@ def generate_token():
     return uuid4().hex
 
 class BaseModel(object):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, unique=True, primary_key=True)
     created = db.Column(db.DateTime(timezone=False), default=datetime.utcnow)
 
     def save(self):
