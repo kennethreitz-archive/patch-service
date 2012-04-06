@@ -60,6 +60,7 @@ class Patch(db.Model, BaseModel):
     name = db.Column(db.String(100), unique=True, primary_key=True)
     description = db.Column(db.String(10000))
     device_id = db.Column(db.Integer, db.ForeignKey('device.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     downloads = db.relationship('Download', backref='patch')
 
